@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_demo_tree" model="ir.ui.view">
+        <field name="name">mi_modulo.demo.tree</field>
+        <field name="model">mi_modulo.demo</field>
+        <field name="arch" type="xml">
+            <list>                                                      
+                     <field name="name"/>                                    
+                     <field name="estado"/>                                  
+                     <field name="prioridad"/>                               
+                     <field name="tecnico_id"/>                              
+                     <field name="fecha"/>                                   
+                     <field name="activo"/>                                  
+                 </list> 
+        </field>
+    </record>
+
+    <record id="view_demo_form" model="ir.ui.view">
+        <field name="name">mi_modulo.demo.form</field>
+        <field name="model">mi_modulo.demo</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="fecha"/>
+                        <field name="estado"/>
+                        <field name="prioridad"/>
+                        <field name="tecnico_id"/>
+                    </group>
+                    <group>
+                        <field name="fecha_limite"/>
+                        <field name="horas"/>
+                        <field name="activo"/>
+                        <field name="descripcion"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_demo_search" model="ir.ui.view">
+        <field name="name">mi_modulo.demo.search</field>
+        <field name="model">mi_modulo.demo</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="estado"/>
+                <field name="prioridad"/>
+                <field name="tecnico_id"/>
+                <separator/>
+                <filter name="filtro_pendientes" string="Pendientes" domain="[('estado', '=', 'planificado')]"/>
+                <filter name="filtro_urgentes" string="Urgentes" domain="[('prioridad', '=', 'urgente')]"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="agrupar_estado" string="Estado" context="{'group_by': 'estado'}"/>
+                    <filter name="agrupar_prioridad" string="Prioridad" context="{'group_by': 'prioridad'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+      <record id="action_demo" model="ir.actions.act_window">
+        <field name="name">Registros Demo</field>
+        <field name="res_model">mi_modulo.demo</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_demo_search"/>
+    </record>
+
+    <menuitem id="menu_demo_root" name="Mis Demos"/>
+    <menuitem id="menu_demo" name="Registros" parent="menu_demo_root" action="action_demo"/>
+
+
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_demo_model,Acceso Demo,model_mi_modulo_demo,base.group_user,1,1,1,1
+access_tecnico_model,Acceso_tecnico,model_mi_modulo_tecnico,base.group_user,1,1,1,1
+
