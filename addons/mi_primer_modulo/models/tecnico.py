@@ -11,4 +11,9 @@ class Tecnico(models.Model):
             ('redes', 'Redes'),
             ('software', 'Software'),
         ], string='Especialidad', default='hardware')
-
+        usuario_id = fields.Many2one(
+            'res.users',
+            string='Usuario de acceso',
+            ondelete='set null',
+        )
+        
