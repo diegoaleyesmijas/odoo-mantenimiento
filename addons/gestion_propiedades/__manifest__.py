@@ -9,6 +9,7 @@
     'license': 'LGPL-3',
     'depends': ['base','mail'],
     'data': [   
+        'security/ir.model.access.csv',
         'views/propiedades_views.xml',
     ],  
     'category': 'Website/Management',   

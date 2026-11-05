@@ -3,29 +3,35 @@
 
     <!-- ACCIÓN: el "enlace" que abre las vistas al pulsar el menú (deba estar ANTES de los menus que la llaman) -->
     <record id="action_gp_propiedades" model="ir.actions.act_window">
-        <field name="name"><título de la acción/página></field>
+        <field name="name">Propiedades</field>
         <field name="res_model">gp.propiedades</field>          <!-- el modelo que abre -->
-        <field name="view_mode">tree,form</field>              <!-- orden de apertura (línea/fichero) -->
-        <field name="context">{}</field>                       <!-- opcional por ahora -->
+        <field name="view_mode">list,form</field>              <!-- orden de apertura (línea/fichero) -->
         <field name="help" type="html">                        <!-- texto botón "crear" cuando la lista viene vacía -->
-            <p class="o_view_nocontent_smiling_face">...</p>
+        <p class="o_view_nocontent_smiling_face">aun no hay propiedades registradas</p>
+        <p>Crea la primera propiedad para empezar a gestionar la cartera de propiedades</p>
         </field>
     </record>
 
 
-    <!-- VISTA ÁRBOL (lista): co exigido columnas del ciclo de la demo (rascando el nombre exacto) -->
+    <!-- VISTA ÁRBOL (lista): 1 registro por fila; sólo se muestran las columnas declaradas aquí -->
     <record id="view_gp_propiedades_tree" model="ir.ui.view">
-        <field name="name">gp.propiedades.view.tree</field>
+        <field name="name">gp.propiedades.view.list</field>
         <field name="model">gp.propiedades</field>
         <field name="arch" type="xml">
-            <tree string="Propiedades">
-                <!-- columnas: name, direccion, tipo_propiedad, estado_alquiler, responsable_id -->
-            </tree>
+            <list string="Propiedades"
+                  decoration-success="estado_alquiler == 'disponible'"
+                  decoration-warning="estado_alquiler == 'alquilada'">
+                <field name="name"/>
+                <field name="direccion"/>
+                <field name="tipo_propiedad"/>
+                <field name="estado_alquiler"/>
+                <field name="responsable_id"/>
+            </list>
         </field>
     </record>
 
 
-    <!-- VISTA FORMULARIO: deba crear bien las fichas -->
+    <!-- VISTA FORMULARIO: pestaña única, 2 columnas de campos -->
     <record id="view_gp_propiedades_form" model="ir.ui.view">
         <field name="name">gp.propiedades.view.form</field>
         <field name="model">gp.propiedades</field>
@@ -33,35 +39,51 @@
             <form string="Propiedad">
                 <sheet>
                     <group>
-                        <group>        <!-- columna izquierda -->
-                            <!-- campos clave -->
+                        <group>
+                            <field name="name"/>
+                            <field name="tipo_propiedad"/>
+                            <field name="estado_alquiler"/>
                         </group>
-                        <group>        <!-- columna derecha -->
-                            <!-- resto de campos -->
+                        <group>
+                            <field name="responsable_id"/>
+                            <field name="direccion"/>
                         </group>
                     </group>
-                    <!-- separador: notas -->
+                    <group string="Notas">
+                        <field name="notas" nolabel="1"/>
+                    </group>
                 </sheet>
             </form>
         </field>
     </record>
 
 
-    <!-- VISTA BÚSQUEDA: filtrar y agrupar (punto 6 de la propuesta) -->
+    <!-- VISTA BÚSQUEDA: qué se puede buscar (fields), filtrar (filter) y agrupar (group) -->
     <record id="view_gp_propiedades_search" model="ir.ui.view">
         <field name="name">gp.propiedades.view.search</field>
         <field name="model">gp.propiedades</field>
         <field name="arch" type="xml">
             <search string="Buscar Propiedades">
-                <!-- campos de búsqueda: name, direccion, responsable_id -->
-                <!-- filtros por estado_alquiler y por tipo_propiedad -->
-                <!-- agrupar por: estado_alquiler, responsable_id -->
+                <field name="name"/>
+                <field name="direccion"/>
+                <field name="responsable_id"/>
+                <filter string="Disponibles" name="filtro_disponibles"
+                        domain="[('estado_alquiler', '=', 'disponible')]"/>
+                <filter string="Alquiladas" name="filtro_alquiladas"
+                        domain="[('estado_alquiler', '=', 'alquilada')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Estado" name="group_estado"
+                            context="{'group_by': 'estado_alquiler'}"/>
+                    <filter string="Responsable" name="group_responsable"
+                            context="{'group_by': 'responsable_id'}"/>
+                </group>
+              
             </search>
         </field>
     </record>
 
 
-    <!-- MENÚ: raíz de la app (¡lo que hará que aparezca en la rejilla!) + entrada hijas -->
+    <!-- MENÚ: raíz de la app  -->
     <menuitem id="menu_gp_root" name="Gestión de Propiedades" sequence="10"/>   <!-- sin parent = menú raíz -->
     <menuitem id="menu_gp_propiedades" parent="menu_gp_root"
               action="action_gp_propiedades" name="Propiedades" sequence="1"/>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gp_propiedades_user,gp.propiedades.user,model_gp_propiedades,base.group_user,1,1,1,1
+access_gp_responsables_user,gp.responsables.user,model_gp_responsables,base.group_user,1,1,1,1
+access_gp_tareas_user,gp.tareas.user,model_gp_tareas,base.group_user,1,1,1,1
+access_gp_historial_user,gp.historial.user,model_gp_historial,base.group_user,1,1,1,1
