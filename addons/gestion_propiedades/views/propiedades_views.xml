@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ACCIÓN: el "enlace" que abre las vistas al pulsar el menú (deba estar ANTES de los menus que la llaman) -->
+    <record id="action_gp_propiedades" model="ir.actions.act_window">
+        <field name="name"><título de la acción/página></field>
+        <field name="res_model">gp.propiedades</field>          <!-- el modelo que abre -->
+        <field name="view_mode">tree,form</field>              <!-- orden de apertura (línea/fichero) -->
+        <field name="context">{}</field>                       <!-- opcional por ahora -->
+        <field name="help" type="html">                        <!-- texto botón "crear" cuando la lista viene vacía -->
+            <p class="o_view_nocontent_smiling_face">...</p>
+        </field>
+    </record>
+
+
+    <!-- VISTA ÁRBOL (lista): co exigido columnas del ciclo de la demo (rascando el nombre exacto) -->
+    <record id="view_gp_propiedades_tree" model="ir.ui.view">
+        <field name="name">gp.propiedades.view.tree</field>
+        <field name="model">gp.propiedades</field>
+        <field name="arch" type="xml">
+            <tree string="Propiedades">
+                <!-- columnas: name, direccion, tipo_propiedad, estado_alquiler, responsable_id -->
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- VISTA FORMULARIO: deba crear bien las fichas -->
+    <record id="view_gp_propiedades_form" model="ir.ui.view">
+        <field name="name">gp.propiedades.view.form</field>
+        <field name="model">gp.propiedades</field>
+        <field name="arch" type="xml">
+            <form string="Propiedad">
+                <sheet>
+                    <group>
+                        <group>        <!-- columna izquierda -->
+                            <!-- campos clave -->
+                        </group>
+                        <group>        <!-- columna derecha -->
+                            <!-- resto de campos -->
+                        </group>
+                    </group>
+                    <!-- separador: notas -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- VISTA BÚSQUEDA: filtrar y agrupar (punto 6 de la propuesta) -->
+    <record id="view_gp_propiedades_search" model="ir.ui.view">
+        <field name="name">gp.propiedades.view.search</field>
+        <field name="model">gp.propiedades</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Propiedades">
+                <!-- campos de búsqueda: name, direccion, responsable_id -->
+                <!-- filtros por estado_alquiler y por tipo_propiedad -->
+                <!-- agrupar por: estado_alquiler, responsable_id -->
+            </search>
+        </field>
+    </record>
+
+
+    <!-- MENÚ: raíz de la app (¡lo que hará que aparezca en la rejilla!) + entrada hijas -->
+    <menuitem id="menu_gp_root" name="Gestión de Propiedades" sequence="10"/>   <!-- sin parent = menú raíz -->
+    <menuitem id="menu_gp_propiedades" parent="menu_gp_root"
+              action="action_gp_propiedades" name="Propiedades" sequence="1"/>
+</odoo>
