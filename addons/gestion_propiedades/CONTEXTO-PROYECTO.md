@@ -64,7 +64,7 @@
 
 ## 🗺️ PLAN DE CONSTRUCCIÓN — SPRINT ACTUAL (seguimiento)
 
-- [x] **Sprint 0:** Propuesta APTA + entorno Docker + práctica completa (O0-O4)
+- [x] **Sprint 0:** Propuesta APTA ✅ + entrenamiento previo completado (aprendizaje de Odoo; módulos de práctica eliminados del repo y BD — trazas documentadas en NOTAS-DEFENSA §7)
 - [x] **Sprint 1 (✅ COMPLETADO 29/10/2026):** Estructura base + modelos + instalación
   - [x] Carpetas creadas (`models/`, `views/`, `security/`)
   - [x] `__init__.py` raíz y en models (conectados: `from . import`)
@@ -85,10 +85,8 @@
   - Pendiente: confirmación visual del icono en rejilla tras `docker compose restart odoo` + F5
 - [ ] **Sprint 2 escalón 2 (ACTUAL):** vista de TAREAS — list + form + search + **calendario** (`date_start="fecha_programada"`) + menús bajo el root; opcional: One2many tareas en el form de propiedades
 - [ ] **Sprint 3:** grupos de seguridad `group_admin_gp`/`group_responsable_gp` + ACL diferenciada por grupo + `ir.rule` (responsable ve SOLO sus tareas) — se parte del CSV mínimo ya existente
-- [ ] **Sprint 4:** Workflow de tareas (botones de estado + `@api.constrains` de horas) + `gp_historial` functiona si sobra tiempo
-- [ ] **Sprint 3:** Seguridad (grupos`group_admin_gp`/`group_responsable_gp`, ACL csv, `ir.rule` por registros)
-- [ ] **Sprint 4:** Workflow de tareas (botones de estado + `@api.constrains` de horas)
-- [ ] **Sprint 5:** Plantilla de racks HTML/CSS/JS (login personalizado)
+- [ ] **Sprint 4:** Workflow de tareas (botones de estado + `@api.constrains` de horas); `gp_historial` entra aquí si sobra tiempo
+- [ ] **Sprint 5:** Login personalizado HTML/CSS/JS (plantilla web hereda login)
 - [ ] **Sprint 6:** Informe QWeb (PDF) de parte de trabajo
 - [ ] **Sprint 7:** Notificaciones por email + chatter en tareas
 - [ ] **Sprint 8:** Despliegue Docker documentado (anexo memoria: manual instalación)
@@ -123,10 +121,10 @@ La memoria, normativa, planificación y estado del proyecto vive en:
 └── feedback-2026-11-03/      ← material del feedback (diagramas Mermaid... PlantUML)
 ```
 
-## 💡 Recuerda de la práctica (`mi_primer_modulo`)
+## 💡 Recordatorios de trabajo (patrones del addon)
 
-- **El módulo real NO hereda código de la práctica.** Se construye desde 0.
-- Estructura y patrones van a ser los mismos que ya sabes hacer (manifest, models, security/ir.model.access.csv...).
-- Cada fichero nuevo que se añade → añadirlo en el `__manifest__.py → data:[...]` **en orden** (seguridad antes que vistas).
-- Tras cada cambio de código → `docker compose restart`.
-- Cada vez que compiles un cambio: upgrade del modulo `gestion_propiedades` (no de `mi_primer_modulo`).
+- **Todo el código nuevo se construye aquí, desde 0** (el proyecto no reutiliza código ajeno ni de entrenamiento).
+- Estructura y patrones: manifest → `models/` → `security/ir.model.access.csv` → `views/`.
+- Cada fichero nuevo sida añadirlo en el `__manifest__.py → data:[...]` **en orden** (seguridad antes que vistas).
+- Tras cada cambio de código → `docker compose restart`; luego upgrade `docker compose exec odoo odoo -d mantenimiento_id -u gestion_propiedades --stop-after-init`.
+- Al desinstalar un módulo pueden quedárso tableyx físicas en PG: verificar con `\dt` y limpiarlas explícitamente si sobran (lección del 06/11).
