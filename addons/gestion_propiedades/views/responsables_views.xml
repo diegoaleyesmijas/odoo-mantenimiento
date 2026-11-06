@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ACCIÓN: el "enlace" que abre las vistas al pulsar el menú (deba estar ANTES de los menus que la llaman) -->
+    <record id="action_gp_responsables" model="ir.actions.act_window">
+        <field name="name">Responsables</field>
+        <field name="res_model">gp.responsables</field>          <!-- el modelo que abre -->
+        <field name="view_mode">list,form</field>              <!-- orden de apertura (línea/fichero) -->
+        <field name="help" type="html">                        <!-- texto botón "crear" cuando la lista viene vacía -->
+        <p class="o_view_nocontent_smiling_face">Aún no hay responsables registrados</p>
+        <p>Registra el primero</p>
+        </field>
+    </record>
+
+    <!-- VISTA ÁRBOL (lista): 1 registro por fila; sólo se muestran las columnas declaradas aquí -->
+    <record id="view_gp_responsables_tree" model="ir.ui.view">
+        <field name="name">gp.responsables.view.list</field>
+        <field name="model">gp.responsables</field>
+        <field name="arch" type="xml">
+           <list string="Responsables">
+                <field name="name"/>
+                <field name="tipo"/>
+                <field name="telefono"/>
+                <field name="email"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- VISTA FORMULARIO: pestaña única, 2 columnas de campos -->
+    <record id="view_gp_responsables_form" model="ir.ui.view">
+        <field name="name">gp.responsables.view.form</field>
+        <field name="model">gp.responsables</field>
+        <field name="arch" type="xml">
+            <form string="Responsables">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tipo"/>
+                        </group>
+                        <group>
+                            <field name="telefono"/>
+                            <field name="email"/>
+                            <field name="usuario_id"/>
+                        </group>
+                    </group>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- VISTA BÚSQUEDA: qué se puede buscar (fields), filtrar (filter) y agrupar (group) -->
+    <record id="view_gp_responsables_search" model="ir.ui.view">
+        <field name="name">gp.responsables.view.search</field>
+        <field name="model">gp.responsables</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Responsables">
+                <field name="name"/>
+                <field name="email"/>
+
+                <filter string="Llaves" name="filtro_llaves"
+                        domain="[('tipo', '=', 'llaves')]"/>
+                <filter string="Limpieza" name="filtro_limpieza"
+                        domain="[('tipo', '=', 'limpieza')]"/>
+                <filter string="Arreglos" name="filtro_arreglos"
+                        domain="[('tipo', '=', 'arreglos')]"/>
+
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo" name="group_tipo"
+                            context="{'group_by': 'tipo'}"/>           
+                </group>
+              
+            </search>
+        </field>
+    </record>
+    
+    <menuitem id="menu_gp_responsables" parent="menu_gp_root"
+          action="action_gp_responsables" name="Responsables" sequence="2"/>
+
+
+</odoo>
