@@ -74,7 +74,7 @@
                 <filter string="Pendiente" name="filtro_pendiente"
                         domain="[('estado', '=', 'pendiente')]"/>
                 <filter string="En Curso" name="filtro_en_curso"
-                        domain="[('estado', '=', 'En curso')]"/>
+                        domain="[('estado', '=', 'en_curso')]"/>
                 <filter string="Completada" name="filtro_completada"
                         domain="[('estado', '=', 'completada')]"/>
 
