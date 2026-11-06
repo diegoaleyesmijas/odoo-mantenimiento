@@ -12,6 +12,8 @@
         'security/ir.model.access.csv',
         'views/propiedades_views.xml',
         'views/responsables_views.xml',
+        'views/tareas_views.xml',
+
     ],  
     'category': 'Website/Management',   
  
