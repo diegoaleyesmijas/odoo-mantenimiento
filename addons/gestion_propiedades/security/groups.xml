@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- 1. CATEGORÍA: el "cajón" que agrupa los roles en el formulario de usuario -->
+    <record id="module_category_gp" model="ir.module.category">
+        <field name="name">Gestión de Propiedades</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <!-- 2. GRUPO RESPONSABLE -->
+    <record id="group_responsable_gp" model="res.groups">
+        <field name="name">Responsable</field>
+        <field name="category_id" ref="module_category_gp"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- 3. GRUPO ADMINISTRADOR -->
+    <record id="group_admin_gp" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="category_id" ref="module_category_gp"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>
