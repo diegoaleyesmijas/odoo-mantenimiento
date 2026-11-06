@@ -5,7 +5,7 @@
     <record id="action_gp_tareas" model="ir.actions.act_window">
         <field name="name">Tareas</field>
         <field name="res_model">gp.tareas</field>          <!-- el modelo que abre -->
-        <field name="view_mode">list,form</field>              <!-- orden de apertura (línea/fichero) -->
+        <field name="view_mode">list,form,calendar</field>              <!-- orden de apertura (línea/fichero) -->
         <field name="help" type="html">                        <!-- texto botón "crear" cuando la lista viene vacía -->
         <p class="o_view_nocontent_smiling_face">Aún no hay tareas registradas</p>
         <p>Registra la primer tarea</p>
@@ -94,6 +94,25 @@
                 </group>
               
             </search>
+
+            
+        </field>
+
+    </record>
+
+    <record id="view_gp_tareas_calendar" model="ir.ui.view">
+        <field name="name">gp.tareas.view.calendar</field>
+        <field name="model">gp.tareas</field>
+        <field name="arch" type="xml">
+           <calendar string="Calendario de Tareas"
+                    date_start="fecha_programada"
+                    date_stop="fecha_limite"
+                    mode="month"
+                    color="prioridad">
+                    <field name="name"/>
+                    <field name="responsable_id"/>
+            </calendar>
+        
         </field>
     </record>
     
