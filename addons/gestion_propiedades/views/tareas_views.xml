@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ACCIÓN: el "enlace" que abre las vistas al pulsar el menú (deba estar ANTES de los menus que la llaman) -->
+    <record id="action_gp_tareas" model="ir.actions.act_window">
+        <field name="name">Tareas</field>
+        <field name="res_model">gp.tareas</field>          <!-- el modelo que abre -->
+        <field name="view_mode">list,form</field>              <!-- orden de apertura (línea/fichero) -->
+        <field name="help" type="html">                        <!-- texto botón "crear" cuando la lista viene vacía -->
+        <p class="o_view_nocontent_smiling_face">Aún no hay tareas registradas</p>
+        <p>Registra la primer tarea</p>
+        </field>
+    </record>
+
+    <!-- VISTA ÁRBOL (lista): 1 registro por fila; sólo se muestran las columnas declaradas aquí -->
+    <record id="view_gp_tareas_tree" model="ir.ui.view">
+        <field name="name">gp.tareas.view.list</field>
+        <field name="model">gp.tareas</field>
+        <field name="arch" type="xml">
+           <list string="Tareas"
+                 decoration-danger="prioridad == 'urgente' and estado != 'completada'"
+                 decoration-muted="estado == 'completada'">
+                <field name="name"/>
+                <field name="propiedad_id"/>
+                <field name="responsable_id"/>
+                <field name="prioridad"/>
+                <field name="estado"/>
+                <field name="fecha_programada"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- VISTA FORMULARIO: pestaña única, 2 columnas de campos -->
+    <record id="view_gp_tareas_form" model="ir.ui.view">
+        <field name="name">gp.tareas.view.form</field>
+        <field name="model">gp.tareas</field>
+        <field name="arch" type="xml">
+            <form string="Tareas">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="propiedad_id"/>
+                            <field name="responsable_id"/>
+                            <field name="tipo_tarea"/>
+                        </group>
+                        <group>
+                            <field name="prioridad"/>
+                            <field name="estado"/>
+                            <field name="fecha_programada"/>
+                            <field name="fecha_limite"/>
+                            <field name="horas"/>
+                        </group>
+                    </group>
+                    <group string="Descripción">
+                        <field name="descripcion" nolabel="1"/>
+                    </group>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- VISTA BÚSQUEDA: qué se puede buscar (fields), filtrar (filter) y agrupar (group) -->
+    <record id="view_gp_tareas_search" model="ir.ui.view">
+        <field name="name">gp.tareas.view.search</field>
+        <field name="model">gp.tareas</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Tareas">
+                <field name="name"/>
+                <field name="propiedad_id"/>
+                <field name="responsable_id"/>
+
+                <filter string="Pendiente" name="filtro_pendiente"
+                        domain="[('estado', '=', 'pendiente')]"/>
+                <filter string="En Curso" name="filtro_en_curso"
+                        domain="[('estado', '=', 'En curso')]"/>
+                <filter string="Completada" name="filtro_completada"
+                        domain="[('estado', '=', 'completada')]"/>
+
+                <separator/>
+                <filter string="Urgentes" name="filtro_urgentes"
+                        domain="[('prioridad', '=', 'urgente')]"/>
+
+                <group expand="0" string="Agrupar por">
+                    <filter string="Estado" name="group_estado"
+                            context="{'group_by': 'estado'}"/>
+                    <filter string="Prioridad" name="group_prioridad"
+                            context="{'group_by': 'prioridad'}"/>
+                    <filter string="Responsable" name="group_responsable"
+                            context="{'group_by': 'responsable_id'}"/>
+                    <filter string="Propiedad" name="group_propiedad"
+                            context="{'group_by': 'propiedad_id'}"/>                   
+                </group>
+              
+            </search>
+        </field>
+    </record>
+    
+    <menuitem id="menu_gp_tareas" parent="menu_gp_root"
+          action="action_gp_tareas" name="Tareas" sequence="3"/>
+
+
+
+</odoo>

@@ -9,7 +9,7 @@ class GpTareas(models.Model):
     tipo_tarea = fields.Selection([
         ('llaves', 'Llaves'),
         ('limpieza', 'Limpieza'),
-        ('arreglo', 'Arreglo'),
+        ('arreglos', 'Arreglos'),
         ('otro', 'Otro'),
     ], string='Tipo de Tarea',)
     estado = fields.Selection([
